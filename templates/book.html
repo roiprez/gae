@@ -1,11 +1,48 @@
 {% extends "esqueleto.html" %}
 {% block content %}
+<div class="book_detail">
+    <img src="data:image/png;base64,{{book.src.encode('base64')}}" alt="{{ book.title }}"
+         title="{{ book.title }}">
+
+    <div class="book_detail_details">
+        <h3>{{ book.title }}</h3>
+        <p>{{ book.description }}</p>
+    </div>
+
+
+</div>
+<div class="previous_votes">
+    {% for vote in book.votes %}
+    <div class="vote">
+        <p>{{vote.comment}}</p>
+        <div class="vote_stars">
+            {% for i in range(0, vote.stars|int) %}
+            <i class="fas fa-star"></i>
+            {% endfor %}
+            {% if vote.stars|int < vote.stars %}
+            <i class="fas fa-star-half-alt"></i>
+            {% endif %}
+            {% for i in range(0, (5 - vote.stars|round|int)) %}
+            <i class="far fa-star"></i>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% endfor %}
+</div>
+<h4>Introduce una opinión</h4>
 <form id="book_input"
       action="/vote"
       method="POST">
-    <input type="hidden" name="book_id" value="{{ book_id }}"/>
-    <input type="text" name="comment"  placeholder="comentario">
-    <input type="number" name="stars">
-    <input type="submit" value="Enviar">
+    <input type="hidden" name="book_id" value="{{ book.id }}"/>
+    <input type="text" name="comment" placeholder="comentario">
+    <ul class="book_stars">
+        {% for i in range(0, 5) %}
+        <button type="submit" class="far fa-star" name="stars" value="{{i+1}}"></button>
+        {% endfor %}
+    </ul>
 </form>
+
+<a href="/">Atrás</a>
 {% endblock %}

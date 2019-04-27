@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+import time
 import webapp2
 from webapp2_extras import jinja2
 from Vote import Vote
@@ -23,7 +25,7 @@ class VoteHandler(webapp2.RequestHandler):
 
     def get(self):
         jinja = jinja2.get_jinja2(app=self.app)
-        book_id = self.request.get('book_id')
+        book_id = int(self.request.get('book_id'))
         votes = Vote.query(Vote.book_id == book_id);
 
         vote_list = []
@@ -51,7 +53,10 @@ class VoteHandler(webapp2.RequestHandler):
 
         vote.put();
 
-        self.response.write(jinja.render_template("index.html"))
+        # Para darle tiempo al recargar de que coja el nuevo comentario
+        time.sleep(1)
+
+        self.redirect('/book?book_id={}'.format(book_id))
 
 
 app = webapp2.WSGIApplication(

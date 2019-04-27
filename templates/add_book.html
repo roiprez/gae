@@ -1,0 +1,14 @@
+{% extends "esqueleto.html" %}
+{% block content %}
+<h4>Introduce un libro</h4>
+<form id="book_input"
+      action="/book"
+      method="POST"
+      enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="título">
+    <input type="text" name="description" placeholder="descripción">
+    <input type="file" name="src" placeholder="Portada">
+    <input type="submit" value="Enviar">
+</form>
+<a href="/">Atrás</a>
+{% endblock %}

@@ -7,9 +7,14 @@
 
 <div class="book_cards">
     {% for book_card in book_cards %}
-        {% with book_card=book_card %}
-        {% include "book_card.html" %}
-        {% endwith %}
+    {% with book_card=book_card %}
+    {% include "book_card.html" %}
+    {% endwith %}
     {% endfor %}
 </div>
+
+<form action="/book" method="POST">
+    <p>¿No encuentras el libro que buscas?</p>
+    <input type="submit" value="Añade un libro" />
+</form>
 {% endblock %}

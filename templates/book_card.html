@@ -3,7 +3,7 @@
           action="/book"
           method="GET">
         <input type="hidden" name="book_id" value="{{ book_card.id }}"/>
-        <input type="image" src="{{ book_card.src }}" alt="{{ book_card.title }}"
+        <input type="image" src="data:image/png;base64,{{book_card.src.encode('base64')}}" alt="{{ book_card.title }}"
                title="{{ book_card.title }}">
 
     </form>

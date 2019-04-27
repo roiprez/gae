@@ -51,6 +51,7 @@ h1 {
 
 #content {
     color: #333;
+    margin: 16px;
 }
 
 #index_header {
@@ -62,21 +63,21 @@ h1 {
     flex-wrap: wrap;
 }
 
-.book_card {
+.book_card{
     margin: 0;
     padding: 8px;
     display: flex;
     flex-direction: column;
 }
 
-.book_card p {
+.book_card p{
     color: #333;
     margin: auto;
     font-size: 12px;
     max-width: 150px;
 }
 
-.book_card input {
+.book_card input, .book_detail img {
     max-height: 300px;
     max-width: 150px;
 }
@@ -86,5 +87,59 @@ h1 {
     margin: 0;
     display: flex;
     justify-content: space-between;
+    color: gold;
+}
+
+.book_detail {
+    margin: 0;
+    padding: 8px;
+    display: flex;
+}
+
+.book_detail_details {
+    margin: 0px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.book_detail_details p{
+    color: #333;
+    font-size: 12px;
+}
+
+.book_stars {
+    padding: 8px;
+    margin: 0px auto;
+    color: gold;
+    min-width: 120px;
+}
+
+.book_stars button {
+    color: gold;
+    background: none;
+    border: none;
+}
+
+.previous_votes .vote {
+    border: 1px solid #333;
+    padding: 8px;
+    margin: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 360px;
+}
+
+
+.previous_votes .vote p {
+    margin: 0;
+    padding-right: 8px;
+}
+
+.vote_stars {
+    min-width: 120px;
+}
+
+.previous_votes .vote i {
     color: gold;
 }

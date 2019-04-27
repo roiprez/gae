@@ -14,8 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+import sys
 import webapp2
 from webapp2_extras import jinja2
+from google.appengine.api import images
 from Book import Book
 from Vote import Vote
 
@@ -23,6 +26,9 @@ from Vote import Vote
 class MainHandler(webapp2.RequestHandler):
 
     def get(self):
+        reload(sys)
+        sys.setdefaultencoding("utf-8")
+
         jinja = jinja2.get_jinja2(app=self.app)
 
         books = Book.query();
@@ -37,7 +43,7 @@ class MainHandler(webapp2.RequestHandler):
                 ratings.append(vote.stars)
 
             if ratings:
-                mean = sum(ratings) / len(ratings)
+                mean = float(sum(ratings)) / len(ratings)
                 stars = round(mean * 2) / 2
             else:
                 stars = 0
@@ -53,11 +59,6 @@ class MainHandler(webapp2.RequestHandler):
         template_values = {'book_cards': book_list}
 
         self.response.write(jinja.render_template("index.html", **template_values))
-
-    def post(self):
-        jinja = jinja2.get_jinja2(app=self.app)
-
-        self.response.write(jinja.render_template("respuesta.html"))
 
 
 app = webapp2.WSGIApplication(
