@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>SaludaME</title>
+    <link href="/styles/index.css" rel="stylesheet" type="text/css" media="screen, projection">
+    <script src="/js/form_validation.js"></script>
+</head>
+<body>
+<h1>SaludaME</h1>
+<p/>
+<form id="frmInput"
+      action="/hi"
+      onSubmit="return validate();"
+      method="post"
+      style="background-color:lightgray">
+    <p>
+        Tu nombre: <input type="text"
+                          name="name"
+                          id="name"
+                          size="10"
+                          placeholder="tu nombre..."
+                          style="border:none;background-color:lightgray"/>
+    </p>
+    <input type="submit" value="Enviar">
+</form>
+<p/>
+<div id="dvError"
+     style="color:white;background-color:red;display:none">
+</div>
+</body>
+</html>

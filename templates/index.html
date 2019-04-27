@@ -1,0 +1,15 @@
+{% extends "esqueleto.html" %}
+{% block content %}
+<div id="index_header">
+    <h2>Bienvenido a Book Recommendations</h2>
+    <h4>Aquí tienes algunos libros interesantes</h4>
+</div>
+
+<div class="book_cards">
+    {% for book_card in book_cards %}
+        {% with book_card=book_card %}
+        {% include "book_card.html" %}
+        {% endwith %}
+    {% endfor %}
+</div>
+{% endblock %}

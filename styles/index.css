@@ -1,0 +1,90 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header, footer {
+    padding: 16px;
+    background-color: #333;
+    color: white;
+}
+
+#header_content, #footer_content {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 960px;
+}
+
+h1 {
+    color: white;
+    margin: 4px;
+
+}
+
+#header_user_panel {
+    color: white;
+    size: 16px;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+#main {
+    display: flex;
+    margin: auto;
+    flex-grow: 1;
+    max-width: 960px;
+}
+
+#content {
+    color: #333;
+}
+
+#index_header {
+    margin-top: 32px;
+}
+
+.book_cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book_card {
+    margin: 0;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.book_card p {
+    color: #333;
+    margin: auto;
+    font-size: 12px;
+    max-width: 150px;
+}
+
+.book_card input {
+    max-height: 300px;
+    max-width: 150px;
+}
+
+.book_card_stars {
+    padding: 8px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    color: gold;
+}

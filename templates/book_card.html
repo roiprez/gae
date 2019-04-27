@@ -1,0 +1,23 @@
+<div class="book_card">
+    <form id="book_input"
+          action="/book"
+          method="GET">
+        <input type="hidden" name="book_id" value="{{ book_card.id }}"/>
+        <input type="image" src="{{ book_card.src }}" alt="{{ book_card.title }}"
+               title="{{ book_card.title }}">
+
+    </form>
+
+    <ul class="book_card_stars">
+        {% for i in range(0, book_card.stars|int) %}
+        <i class="fas fa-star"></i>
+        {% endfor %}
+        {% if book_card.stars|int < book_card.stars %}
+        <i class="fas fa-star-half-alt"></i>
+        {% endif %}
+        {% for i in range(0, (5 - book_card.stars|round|int)) %}
+        <i class="far fa-star"></i>
+        {% endfor %}
+    </ul>
+    <p>{{book_card.num_votes}} votos</p>
+</div>

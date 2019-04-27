@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Recommendations</title>
+    <link href="/styles/index.css" rel="stylesheet" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="/js/form_validation.js"></script>
+</head>
+<body>
+<header>
+    <div id="header_content">
+        <h1>Book Recommendations</h1>
+        <div id="header_user_panel">
+            <button class="logout-button fas fa-sign-out-alt fa-2x"></button>
+        </div>
+    </div>
+</header>
+<div id="main">
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+<footer>
+    <div id="footer_content">
+        Footer
+    </div>
+</footer>
+</body>
+</html>
