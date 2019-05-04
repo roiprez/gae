@@ -24,15 +24,24 @@ header, footer {
     max-width: 960px;
 }
 
+#header_content a {
+    text-decoration: none;
+}
+
 h1 {
     color: white;
     margin: 4px;
-
 }
 
 #header_user_panel {
     color: white;
     size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+#header_user_panel p {
+    margin: 0px 16px;
 }
 
 .logout-button {
@@ -63,14 +72,14 @@ h1 {
     flex-wrap: wrap;
 }
 
-.book_card{
+.book_card {
     margin: 0;
     padding: 8px;
     display: flex;
     flex-direction: column;
 }
 
-.book_card p{
+.book_card p {
     color: #333;
     margin: auto;
     font-size: 12px;
@@ -78,8 +87,8 @@ h1 {
 }
 
 .book_card input, .book_detail img {
-    max-height: 300px;
-    max-width: 150px;
+    height: 225px;
+    width: 150px;
 }
 
 .book_card_stars {
@@ -102,7 +111,7 @@ h1 {
     flex-direction: column;
 }
 
-.book_detail_details p{
+.book_detail_details p {
     color: #333;
     font-size: 12px;
 }
@@ -120,9 +129,41 @@ h1 {
     border: none;
 }
 
+.book_stars button:hover {
+    color: goldenrod;
+}
+
+#book_input {
+    display: flex;
+    flex-direction: column;
+}
+
+#book_input input, #book_input textarea {
+    margin: 8px;
+    padding: 8px;
+    background-color: #EEE;
+    border: none;
+    border-radius: 3px;
+}
+
+#book_input #submit-button {
+    color: white;
+    background-color: #333;
+}
+
+#book_input #add_description {
+    height: 150px;
+    width: 500px;
+}
+
+.previous_votes {
+    margin: 48px 0px;
+}
+
 .previous_votes .vote {
     border: 1px solid #333;
-    padding: 8px;
+    border-radius: 2px;
+    padding: 12px;
     margin: 8px;
     display: flex;
     justify-content: space-between;
@@ -142,4 +183,36 @@ h1 {
 
 .previous_votes .vote i {
     color: gold;
+}
+
+.vote-user{
+    color: #AAA;
+    padding-bottom: 8px;
+}
+
+.button-container {
+    margin: 32px;
+    display: flex;
+}
+
+.return-button {
+    text-decoration: none;
+    color: #333;
+    margin: auto;
+}
+
+#add_book_form {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#add_book {
+    color: white;
+    margin: 8px;
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    background-color: #333;
 }

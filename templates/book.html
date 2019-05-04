@@ -8,13 +8,17 @@
         <h3>{{ book.title }}</h3>
         <p>{{ book.description }}</p>
     </div>
-
-
 </div>
 <div class="previous_votes">
+    {% if book.votes.count() > 0 %}
+    <h4>Opiniones de otros usuarios</h4>
+    {% endif %}
     {% for vote in book.votes %}
     <div class="vote">
-        <p>{{vote.comment}}</p>
+        <div>
+            <p class="vote-user">{{vote.user}}</p>
+            <p>{{vote.comment}}</p>
+        </div>
         <div class="vote_stars">
             {% for i in range(0, vote.stars|int) %}
             <i class="fas fa-star"></i>
@@ -26,7 +30,6 @@
             <i class="far fa-star"></i>
             {% endfor %}
         </div>
-
     </div>
 
     {% endfor %}
@@ -36,13 +39,15 @@
       action="/vote"
       method="POST">
     <input type="hidden" name="book_id" value="{{ book.id }}"/>
-    <input type="text" name="comment" placeholder="comentario">
+    <textarea id="add_comment" rows="5" cols="70" maxlength="300" name="comment"
+              placeholder="comentario (max 300 caracteres)"></textarea>
     <ul class="book_stars">
         {% for i in range(0, 5) %}
         <button type="submit" class="far fa-star" name="stars" value="{{i+1}}"></button>
         {% endfor %}
     </ul>
 </form>
-
-<a href="/">Atrás</a>
+<div class="button-container">
+    <a href="/" class="return-button fas fa-arrow-left fa-2x"></a>
+</div>
 {% endblock %}

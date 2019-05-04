@@ -18,7 +18,7 @@
 import sys
 import webapp2
 from webapp2_extras import jinja2
-from google.appengine.api import images
+from google.appengine.api import users
 from Book import Book
 from Vote import Vote
 
@@ -56,7 +56,7 @@ class MainHandler(webapp2.RequestHandler):
                 'num_votes': len(ratings)
             })
 
-        template_values = {'book_cards': book_list}
+        template_values = {'book_cards': book_list, 'users': users}
 
         self.response.write(jinja.render_template("index.html", **template_values))
 

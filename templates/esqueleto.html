@@ -11,9 +11,14 @@
 <body>
 <header>
     <div id="header_content">
-        <h1>Book Recommendations</h1>
+        <a href="/"><h1>Book Recommendations</h1></a>
         <div id="header_user_panel">
-            <button class="logout-button fas fa-sign-out-alt fa-2x"></button>
+            {% if(users.get_current_user()) %}
+            <p>{{users.get_current_user().nickname()}}</p>
+            <a href="{{users.create_logout_url('/')}}" class="logout-button fas fa-sign-out-alt fa-2x"></a>
+            {% else %}
+            <a href="{{users.create_login_url('/')}}" class="logout-button fas fa-sign-in-alt fa-2x"></a>
+            {% endif %}
         </div>
     </div>
 </header>

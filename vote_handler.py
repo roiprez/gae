@@ -17,48 +17,65 @@
 
 import time
 import webapp2
+from google.appengine.api import users
 from webapp2_extras import jinja2
 from Vote import Vote
+from main import MainHandler
 
 
 class VoteHandler(webapp2.RequestHandler):
 
     def get(self):
-        jinja = jinja2.get_jinja2(app=self.app)
-        book_id = int(self.request.get('book_id'))
-        votes = Vote.query(Vote.book_id == book_id);
+        user = users.get_current_user()
+        if user == None:
+            self.redirect("/")
 
-        vote_list = []
+        else:
+            jinja = jinja2.get_jinja2(app=self.app)
+            book_id = int(self.request.get('book_id'))
+            votes = Vote.query(Vote.book_id == book_id);
 
-        for vote in votes:
-            vote_list.append({
-                'comment': vote.comment,
-                'stars': vote.stars
-            })
+            vote_list = []
 
-        template_values = {'votes': vote_list}
+            for vote in votes:
+                vote_list.append({
+                    'comment': vote.comment,
+                    'stars': vote.stars,
+                    'user': vote.user
+                })
 
-        self.response.write(jinja.render_template("book.html", **template_values))
+            template_values = {'votes': vote_list}
+
+            self.response.write(jinja.render_template("book.html", **template_values))
 
     def post(self):
-        jinja = jinja2.get_jinja2(app=self.app)
+        user = users.get_current_user()
 
-        book_id = int(self.request.get('book_id'))
-        stars = int(self.request.get('stars'))
-        comment = self.request.get('comment')
-        print("comment" + comment)
+        if user:
+            book_id = int(self.request.get('book_id'))
+            stars = int(self.request.get('stars'))
+            comment = self.request.get('comment')
+            print("comment" + comment)
 
-        vote = Vote(book_id=book_id, stars=stars,
-                    comment=comment);
+            vote = Vote(book_id=book_id, stars=stars,
+                        comment=comment, user=user.email());
 
-        vote.put();
+            vote.put();
 
-        # Para darle tiempo al recargar de que coja el nuevo comentario
-        time.sleep(1)
+            # Para darle tiempo al recargar de que coja el nuevo comentario
+            time.sleep(1)
 
-        self.redirect('/book?book_id={}'.format(book_id))
+            self.redirect('/book?book_id={}'.format(book_id))
+
+        else:
+            greeting = str.format(
+                "<a href=\"{0}\">Sign in or register</a>.",
+                users.create_login_url('/'))
+
+            self.response.out.write(
+                str.format("<html><body>{0}</body></html>", greeting))
 
 
 app = webapp2.WSGIApplication(
-    [('/vote', VoteHandler)],
+    [('/', MainHandler), ('/vote', VoteHandler)],
     debug=True)

@@ -15,9 +15,10 @@
 # limitations under the License.
 #
 
+import time
 import webapp2
 from webapp2_extras import jinja2
-from google.appengine.api import images
+from google.appengine.api import images, users
 from google.appengine.ext import ndb
 from Book import Book
 from Vote import Vote
@@ -26,54 +27,80 @@ from Vote import Vote
 class BookHandler(webapp2.RequestHandler):
 
     def get(self):
-        jinja = jinja2.get_jinja2(app=self.app)
-        book_id = self.request.get('book_id')
+        user = users.get_current_user()
+        if user:
+            jinja = jinja2.get_jinja2(app=self.app)
+            book_id = self.request.get('book_id')
 
-        book_key = ndb.Key(Book, int(book_id))
+            book_key = ndb.Key(Book, int(book_id))
 
-        book = book_key.get()
+            book = book_key.get()
 
-        votes = Vote.query(Vote.book_id == book.key.id());
+            votes = Vote.query(Vote.book_id == book.key.id());
 
-        ratings = []
-        for vote in votes:
-            ratings.append(vote.stars)
+            ratings = []
+            for vote in votes:
+                ratings.append(vote.stars)
 
-        if ratings:
-            mean = sum(ratings) / len(ratings)
-            stars = round(mean * 2) / 2
+            if ratings:
+                mean = sum(ratings) / len(ratings)
+                stars = round(mean * 2) / 2
+            else:
+                stars = 0
+
+            template_values = {
+                'book': {
+                    'id': book_id,
+                    'src': book.src,
+                    'title': book.title,
+                    'description': book.description,
+                    'votes': votes
+                },
+                'users': users}
+
+            self.response.write(jinja.render_template("book.html", **template_values))
+
         else:
-            stars = 0
+            greeting = str.format(
+                "<a href=\"{0}\">Sign in or register</a>.",
+                users.create_login_url('/'))
 
-        template_values = {
-            'book': {
-                'id': book_id,
-                'src': book.src,
-                'title': book.title,
-                'description': book.description,
-                'votes': votes
-            }}
-
-        self.response.write(jinja.render_template("book.html", **template_values))
+            self.response.out.write(
+                str.format("<html><body>{0}</body></html>", greeting))
 
     def post(self):
         jinja = jinja2.get_jinja2(app=self.app)
 
-        if self.request.get('title'):
-            src = self.request.get('src')
-            title = self.request.get('title')
-            description = self.request.get('description')
+        user = users.get_current_user()
 
-            book = Book(title=title,
-                        description=description);
+        if user:
+            if self.request.get('title'):
+                src = self.request.get('src')
+                title = self.request.get('title')
+                description = self.request.get('description')
 
-            book.src = images.resize(src, 120, 240)
+                book = Book(title=title,
+                            description=description, user=user.email());
 
-            book.put();
+                book.src = images.resize(src, 120, 240)
 
-            self.response.write(jinja.render_template("index.html"))
+                book.put();
+
+                # Para darle tiempo al recargar de que coja el nuevo libro
+                time.sleep(1)
+
+                self.redirect('/')
+            else:
+                template_values = {'users': users}
+                self.response.write(jinja.render_template("add_book.html", **template_values))
+
         else:
-            self.response.write(jinja.render_template("add_book.html"))
+            greeting = str.format(
+                "<a href=\"{0}\">Sign in or register</a>.",
+                users.create_login_url('/'))
+
+            self.response.out.write(
+                str.format("<html><body>{0}</body></html>", greeting))
 
 
 app = webapp2.WSGIApplication(
