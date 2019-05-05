@@ -53,6 +53,7 @@ class MainHandler(webapp2.RequestHandler):
                 'src': book.src,
                 'title': book.title,
                 'stars': stars,
+                'user': book.user,
                 'num_votes': len(ratings)
             })
 

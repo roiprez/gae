@@ -20,6 +20,14 @@
             <p>{{vote.comment}}</p>
         </div>
         <div class="vote_stars">
+            {% if users.get_current_user().nickname() == vote.user %}
+            <form id="delete-vote"
+                  action="/vote"
+                  method="POST">
+                <input type="hidden" name="book_id" value="{{ book.id }}"/>
+                <button type="submit" class="delete-vote-button fas fa-trash" name="deleting" value="delete"></button>
+            </form>
+            {% endif %}
             {% for i in range(0, vote.stars|int) %}
             <i class="fas fa-star"></i>
             {% endfor %}
@@ -30,11 +38,17 @@
             <i class="far fa-star"></i>
             {% endfor %}
         </div>
-    </div>
 
+    </div>
     {% endfor %}
 </div>
 <h4>Introduce una opinión</h4>
+{% for vote in book.votes %}
+{% if users.get_current_user().nickname() == vote.user %}
+<h5>Se sobreescribirá tu voto anterior</h5>
+{% endif %}
+{% endfor %}
+
 <form id="book_input"
       action="/vote"
       method="POST">

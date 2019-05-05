@@ -19,5 +19,14 @@
         <i class="far fa-star"></i>
         {% endfor %}
     </ul>
+
     <p>{{book_card.num_votes}} votos</p>
+    {% if users.get_current_user().nickname() == book_card.user %}
+    <form id="delete-book"
+          action="/book"
+          method="POST">
+        <input type="hidden" name="book_id" value="{{ book_card.id }}"/>
+        <button type="submit" class="delete-book-button fas fa-trash" name="deleting" value="delete"></button>
+    </form>
+    {% endif %}
 </div>

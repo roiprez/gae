@@ -99,6 +99,18 @@ h1 {
     color: gold;
 }
 
+#delete-book {
+    margin: auto;
+    padding: 8px;
+}
+
+.delete-book-button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
+
 .book_detail {
     margin: 0;
     padding: 8px;
@@ -178,7 +190,15 @@ h1 {
 }
 
 .vote_stars {
-    min-width: 120px;
+    display: flex;
+}
+
+.vote_stars .delete-vote-button {
+    margin: 0px 8px;
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
 }
 
 .previous_votes .vote i {

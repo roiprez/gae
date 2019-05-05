@@ -74,7 +74,21 @@ class BookHandler(webapp2.RequestHandler):
         user = users.get_current_user()
 
         if user:
-            if self.request.get('title'):
+            if self.request.get('deleting'):
+                book_id = self.request.get('book_id')
+
+                book_key = ndb.Key(Book, int(book_id))
+                book = book_key.get()
+
+                if book.user == user.email():
+                    book_key.delete()
+
+                # Para darle tiempo al recargar a que haya borrado el libro
+                time.sleep(1)
+
+                self.redirect('/')
+
+            elif self.request.get('title'):
                 src = self.request.get('src')
                 title = self.request.get('title')
                 description = self.request.get('description')
@@ -86,7 +100,7 @@ class BookHandler(webapp2.RequestHandler):
 
                 book.put();
 
-                # Para darle tiempo al recargar de que coja el nuevo libro
+                # Para darle tiempo al recargar a que coja el nuevo libro
                 time.sleep(1)
 
                 self.redirect('/')

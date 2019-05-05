@@ -52,17 +52,30 @@ class VoteHandler(webapp2.RequestHandler):
         user = users.get_current_user()
 
         if user:
+
             book_id = int(self.request.get('book_id'))
-            stars = int(self.request.get('stars'))
-            comment = self.request.get('comment')
-            print("comment" + comment)
 
-            vote = Vote(book_id=book_id, stars=stars,
-                        comment=comment, user=user.email());
+            if self.request.get('deleting'):
+                votes = Vote.query(Vote.book_id == book_id and Vote.user == user.email());
 
-            vote.put();
+                for vote in votes:
+                    vote.key.delete()
 
-            # Para darle tiempo al recargar de que coja el nuevo comentario
+            else:
+                stars = int(self.request.get('stars'))
+                comment = self.request.get('comment')
+
+                votes = Vote.query(Vote.book_id == book_id and Vote.user == user.email());
+
+                for vote in votes:
+                    vote.key.delete()
+
+                vote = Vote(book_id=book_id, stars=stars,
+                            comment=comment, user=user.email());
+
+                vote.put();
+
+            # Para darle tiempo al recargar a que coja el nuevo comentario
             time.sleep(1)
 
             self.redirect('/book?book_id={}'.format(book_id))
