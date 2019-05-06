@@ -2,7 +2,9 @@
 {% block content %}
 <div id="index_header">
     <h2>Bienvenido a Book Recommendations</h2>
-    <h4>Aquí tienes algunos libros interesantes</h4>
+    {% if book_cards | length %}
+    <h4>Aquí tienes algunos libros interesantes (clica en uno para ver las valoraciones)</h4>
+    {% endif %}
 </div>
 
 <div class="book_cards">
@@ -14,7 +16,9 @@
 </div>
 
 <form id="add_book_form" action="/book" method="POST">
+    {% if book_cards | length %}
     <p>¿No encuentras el libro que buscas?</p>
+    {% endif %}
     <input id="add_book" type="submit" value="Añade un libro"/>
 </form>
 {% endblock %}

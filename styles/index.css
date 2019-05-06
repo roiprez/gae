@@ -107,7 +107,7 @@ h1 {
 .delete-book-button {
     background: none;
     border: none;
-    color: red;
+    color: #ff5359;
     cursor: pointer;
 }
 
@@ -160,7 +160,7 @@ h1 {
 
 #book_input #submit-button {
     color: white;
-    background-color: #333;
+    background-color: #1277eb;
 }
 
 #book_input #add_description {
@@ -197,7 +197,7 @@ h1 {
     margin: 0px 8px;
     background: none;
     border: none;
-    color: red;
+    color: #ff5359;
     cursor: pointer;
 }
 
@@ -205,7 +205,7 @@ h1 {
     color: gold;
 }
 
-.vote-user{
+.vote-user {
     color: #AAA;
     padding-bottom: 8px;
 }
@@ -234,5 +234,26 @@ h1 {
     padding: 8px;
     border: none;
     border-radius: 3px;
-    background-color: #333;
+    background-color: #1277eb;
+}
+
+.sign_in_container {
+    background: #1277eb;
+    border-radius: 3px;
+    display: flex;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.sign_in {
+    padding: 16px;
+    text-decoration: none;
+    color: white;
+}
+
+.warning_vote {
+    color: #ff5359;
 }

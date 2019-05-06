@@ -27,9 +27,10 @@ from Vote import Vote
 class BookHandler(webapp2.RequestHandler):
 
     def get(self):
+        jinja = jinja2.get_jinja2(app=self.app)
+
         user = users.get_current_user()
         if user:
-            jinja = jinja2.get_jinja2(app=self.app)
             book_id = self.request.get('book_id')
 
             book_key = ndb.Key(Book, int(book_id))
@@ -61,12 +62,12 @@ class BookHandler(webapp2.RequestHandler):
             self.response.write(jinja.render_template("book.html", **template_values))
 
         else:
-            greeting = str.format(
-                "<a href=\"{0}\">Sign in or register</a>.",
-                users.create_login_url('/'))
+            template_values = {
+                'login_url': users.create_login_url('/'),
+                'users': users
+            }
 
-            self.response.out.write(
-                str.format("<html><body>{0}</body></html>", greeting))
+            self.response.out.write(jinja.render_template("sign_in.html", **template_values))
 
     def post(self):
         jinja = jinja2.get_jinja2(app=self.app)
@@ -109,12 +110,12 @@ class BookHandler(webapp2.RequestHandler):
                 self.response.write(jinja.render_template("add_book.html", **template_values))
 
         else:
-            greeting = str.format(
-                "<a href=\"{0}\">Sign in or register</a>.",
-                users.create_login_url('/'))
+            template_values = {
+                'login_url': users.create_login_url('/'),
+                'users': users
+            }
 
-            self.response.out.write(
-                str.format("<html><body>{0}</body></html>", greeting))
+            self.response.out.write(jinja.render_template("sign_in.html", **template_values))
 
 
 app = webapp2.WSGIApplication(

@@ -56,7 +56,7 @@ class VoteHandler(webapp2.RequestHandler):
             book_id = int(self.request.get('book_id'))
 
             if self.request.get('deleting'):
-                votes = Vote.query(Vote.book_id == book_id and Vote.user == user.email());
+                votes = Vote.query(Vote.book_id == book_id, Vote.user == user.email());
 
                 for vote in votes:
                     vote.key.delete()
@@ -65,7 +65,7 @@ class VoteHandler(webapp2.RequestHandler):
                 stars = int(self.request.get('stars'))
                 comment = self.request.get('comment')
 
-                votes = Vote.query(Vote.book_id == book_id and Vote.user == user.email());
+                votes = Vote.query(Vote.book_id == book_id, Vote.user == user.email());
 
                 for vote in votes:
                     vote.key.delete()

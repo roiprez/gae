@@ -20,7 +20,7 @@
             <p>{{vote.comment}}</p>
         </div>
         <div class="vote_stars">
-            {% if users.get_current_user().nickname() == vote.user %}
+            {% if users.get_current_user() and users.get_current_user().email() == vote.user %}
             <form id="delete-vote"
                   action="/vote"
                   method="POST">
@@ -44,8 +44,8 @@
 </div>
 <h4>Introduce una opinión</h4>
 {% for vote in book.votes %}
-{% if users.get_current_user().nickname() == vote.user %}
-<h5>Se sobreescribirá tu voto anterior</h5>
+{% if users.get_current_user().email() == vote.user %}
+<h5 class="warning_vote">Se sobreescribirá tu voto anterior</h5>
 {% endif %}
 {% endfor %}
 
@@ -54,7 +54,7 @@
       method="POST">
     <input type="hidden" name="book_id" value="{{ book.id }}"/>
     <textarea id="add_comment" rows="5" cols="70" maxlength="300" name="comment"
-              placeholder="comentario (max 300 caracteres)"></textarea>
+              placeholder="comentario (opcional)"></textarea>
     <ul class="book_stars">
         {% for i in range(0, 5) %}
         <button type="submit" class="far fa-star" name="stars" value="{{i+1}}"></button>

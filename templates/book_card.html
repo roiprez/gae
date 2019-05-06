@@ -21,7 +21,7 @@
     </ul>
 
     <p>{{book_card.num_votes}} votos</p>
-    {% if users.get_current_user().nickname() == book_card.user %}
+    {% if users.get_current_user() and users.get_current_user().email() == book_card.user %}
     <form id="delete-book"
           action="/book"
           method="POST">

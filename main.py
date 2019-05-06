@@ -59,6 +59,8 @@ class MainHandler(webapp2.RequestHandler):
 
         template_values = {'book_cards': book_list, 'users': users}
 
+        print(users.get_current_user())
+
         self.response.write(jinja.render_template("index.html", **template_values))
 
 
