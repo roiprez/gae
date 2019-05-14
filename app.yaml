@@ -17,14 +17,8 @@ handlers:
     static_files: favicon.ico
     upload: favicon\.ico
 
-  - url: /
+  - url: /.*
     script: main.app
-
-  - url: /book
-    script: book_handler.app
-
-  - url: /vote
-    script: vote_handler.app
 
   - url: /profile/.*
     script: user_profile.app

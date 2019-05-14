@@ -15,55 +15,11 @@
 # limitations under the License.
 #
 
-import sys
 import webapp2
-from webapp2_extras import jinja2
-from google.appengine.api import users
-from Book import Book
-from Vote import Vote
-
-
-class MainHandler(webapp2.RequestHandler):
-
-    def get(self):
-        reload(sys)
-        sys.setdefaultencoding("utf-8")
-
-        jinja = jinja2.get_jinja2(app=self.app)
-
-        books = Book.query();
-
-        book_list = []
-
-        for book in books:
-            votes = Vote.query(Vote.book_id == book.key.id());
-
-            ratings = []
-            for vote in votes:
-                ratings.append(vote.stars)
-
-            if ratings:
-                mean = float(sum(ratings)) / len(ratings)
-                stars = round(mean * 2) / 2
-            else:
-                stars = 0
-
-            book_list.append({
-                'id': book.key.id(),
-                'src': book.src,
-                'title': book.title,
-                'stars': stars,
-                'user': book.user,
-                'num_votes': len(ratings)
-            })
-
-        template_values = {'book_cards': book_list, 'users': users}
-
-        print(users.get_current_user())
-
-        self.response.write(jinja.render_template("index.html", **template_values))
-
+from handlers.book_handler import BookHandler
+from handlers.vote_handler import VoteHandler
+from handlers.main_handler import MainHandler
 
 app = webapp2.WSGIApplication(
-    [('/', MainHandler)],
+    [('/', MainHandler), ('/vote', VoteHandler), ('/book', BookHandler)],
     debug=True)

@@ -19,8 +19,8 @@ import time
 import webapp2
 from google.appengine.api import users
 from webapp2_extras import jinja2
-from Vote import Vote
-from main import MainHandler
+from models.Vote import Vote
+from main_handler import MainHandler
 
 
 class VoteHandler(webapp2.RequestHandler):
@@ -88,7 +88,3 @@ class VoteHandler(webapp2.RequestHandler):
             self.response.out.write(
                 str.format("<html><body>{0}</body></html>", greeting))
 
-
-app = webapp2.WSGIApplication(
-    [('/', MainHandler), ('/vote', VoteHandler)],
-    debug=True)

@@ -20,8 +20,8 @@ import webapp2
 from webapp2_extras import jinja2
 from google.appengine.api import images, users
 from google.appengine.ext import ndb
-from Book import Book
-from Vote import Vote
+from models.Book import Book
+from models.Vote import Vote
 
 
 class BookHandler(webapp2.RequestHandler):
@@ -93,9 +93,10 @@ class BookHandler(webapp2.RequestHandler):
                 src = self.request.get('src')
                 title = self.request.get('title')
                 description = self.request.get('description')
+                category = self.request.get('category')
 
                 book = Book(title=title,
-                            description=description, user=user.email());
+                            description=description, category=category, user=user.email());
 
                 book.src = images.resize(src, 120, 240)
 
@@ -116,8 +117,3 @@ class BookHandler(webapp2.RequestHandler):
             }
 
             self.response.out.write(jinja.render_template("sign_in.html", **template_values))
-
-
-app = webapp2.WSGIApplication(
-    [('/book', BookHandler)],
-    debug=True)

@@ -6,7 +6,17 @@
     <h4>Aquí tienes algunos libros interesantes (clica en uno para ver las valoraciones)</h4>
     {% endif %}
 </div>
-
+<form id="filter" action="/" method="GET">
+    <input id="text_filter" name="text_filter" type="text" placeholder="Busca por título" value="{{text_filter}}"/>
+    <select id="category_filter" name="category">
+        <option value="" selected="selected">Categoría</option>
+        <option value="suspense">Suspense</option>
+        <option value="fantasy">Fantasía</option>
+        <option value="non-fiction">No ficción</option>
+        <option value="technology">Tecnología</option>
+    </select>
+    <input id="filter_submit" type="submit" value="Filtrar"/>
+</form>
 <div class="book_cards">
     {% for book_card in book_cards %}
     {% with book_card=book_card %}
@@ -14,7 +24,11 @@
     {% endwith %}
     {% endfor %}
 </div>
-
+{% if filtered %}
+<div class="button-container">
+    <a href="/" class="return-button fas fa-arrow-left fa-2x"></a>
+</div>
+{% endif %}
 <form id="add_book_form" action="/book" method="POST">
     {% if book_cards | length %}
     <p>¿No encuentras el libro que buscas?</p>

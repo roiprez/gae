@@ -150,7 +150,7 @@ h1 {
     flex-direction: column;
 }
 
-#book_input input, #book_input textarea {
+#book_input input, #book_input textarea, #book_input select {
     margin: 8px;
     padding: 8px;
     background-color: #EEE;
@@ -256,4 +256,33 @@ h1 {
 
 .warning_vote {
     color: #ff5359;
+}
+
+#filter {
+    padding: 16px;
+}
+
+#text_filter {
+    margin: 8px;
+    padding: 8px;
+    background-color: #EEE;
+    border: none;
+    border-radius: 3px;
+}
+
+#category_filter {
+    margin: 8px;
+    padding: 8px;
+    background-color: #EEE;
+    border: none;
+    border-radius: 3px;
+}
+
+#filter_submit {
+    color: white;
+    margin: 8px;
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    background-color: #1277eb;
 }
